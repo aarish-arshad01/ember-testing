@@ -1,0 +1,22 @@
+name: Verify PR Merge Feature
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main] # or master, whichever your default branch is
+
+jobs:
+  check-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: The Merge Gate
+        run: |
+          if [[ "${{ github.event.pull_request.merged }}" == "true" ]]; then
+            echo "SUCCESS: The PR was merged! Deploying code..."
+          else
+            echo "BLOCKED: The PR was closed but NOT merged. No deployment."
+            exit 1
+          fi
+
+      - name: Deployment Step
+        run: echo "The deployment is happening now because the PR was merged."
