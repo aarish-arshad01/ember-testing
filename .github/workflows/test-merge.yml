@@ -3,7 +3,7 @@ name: Verify PR Merge Feature
 on:
   pull_request:
     types: [closed]
-    branches: [main] # or master, whichever your default branch is
+    branches: [main]
 
 jobs:
   check-merge:
@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: The Merge Gate
         run: |
-          if [[ "${{ github.event.pull_request.merged }}" == "true" ]]; then
-            echo "SUCCESS: The PR was merged! Deploying code..."
+          if [[ "\${{ github.event.pull_request.merged }}" == "true" ]]; then
+            echo "SUCCESS: The PR was merged!"
           else
-            echo "BLOCKED: The PR was closed but NOT merged. No deployment."
+            echo "BLOCKED: The PR was closed but NOT merged."
             exit 1
           fi
 
